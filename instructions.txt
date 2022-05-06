@@ -1,0 +1,30 @@
+Hola Sonia,
+
+Me gustaría agradecerte tu tiempo para la entrevista. Como hablamos, nos gustaría que realizases esta pequeña tarea:
+
+Descripción del problema:
+Quiero analizar los datos de mi compañía para poder sacar ventaja de esa información y hacer más dinero para mi compañía (es un sector altamente competitivo). El uso de Base de Datos no es necesario, solo es necesario leer el fichero csv y mostrar los resultados por pantalla.
+
+Detalles:
+Obtener el customer con el check-in date más antiguo.
+Obtener el customer con el check-in date más reciente.
+Obtener una lista de full names de los customers ordenados alfabéticamente.
+Los required fields en el fichero son: Street, Zip, City, Last Check-in Date and Company.
+Check que las excepciones son manejadas correctamente
+
+Notas funcionales:
+El fichero tiene los siguientes headers: First Name, Last Name, Street, Zip, City, Type, Job, Phone, Last Check-In Date and Company.
+El full name the los customers esta compuesto como First Name + Last Name
+
+Notas técnicas:
+El fichero de ejemplo tiene 10 filas de datos (excluyendo el header). Pero debe funcionar para cualquier fichero.
+Es recomendable imprimir las excepciones en caso de que un field requerido este vacío para una fila, pero el resto del fichero se procese.
+Es recomendable imprimir una excepción en caso de que una fila contenga menos campos de los esperados, pero el resto del fichero es procesado.
+Es recomendable logear una excepción en caso de que una fila no tenga datos, pero el resto del fichero es procesado
+
+El lenguaje es irrelevantes (pero preferiblemente Python or JavaScript)
+
+Necesitaríamos que resolvieras este problema en tu repositorio GitHub para poder acceder a él y que durante el proceso fueras haciendo commits para hacernos una idea del tiempo estimado que se le dedica a la prueba.
+
+Por favor, envíanos tu respuesta en un plazo de 7 días.
+Muchas gracias.
