@@ -12,4 +12,4 @@ establish connection:
 host: localhost
 user: badger
 password: maps
-
+database: badger_db
