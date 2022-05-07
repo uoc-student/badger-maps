@@ -20,13 +20,21 @@ def create_server_connection(host_name, user_name, user_password, user_db):
 
     return connection
 
-# Create a function to generate a database
-def create_database(connection, query):
-    pass
 
-# Function to quer the db
+# Function to create a database
+def create_database(connection, query):
+        cursor = connection.cursor()
+        try:
+            cursor.execute(query)
+            print("Database created successfully")
+        except Error as err:
+            print(f"Error: '{err}'")
+
+
+# Function to query the db
 def execute_query(connection, query):
     pass
+
 
 # Function to print the results from a query 
 def print_query_result(query_obj):
@@ -52,11 +60,13 @@ def main():
     user = "badger"
     password = "maps"
     database = "badger_db"
+    cvs_dir = "./customer_data.csv"
 
     # Establish connection with the database
     connection = create_server_connection(hostname, user, password, database)
 
-    
+    # Create database
+    create_database(connection, "CREATE DATABASE " + database + ";")
 
 
 if __name__ == "__main__":
