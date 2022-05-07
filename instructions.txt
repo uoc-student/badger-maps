@@ -1,7 +1,3 @@
-Hola Sonia,
-
-Me gustaría agradecerte tu tiempo para la entrevista. Como hablamos, nos gustaría que realizases esta pequeña tarea:
-
 Descripción del problema:
 Quiero analizar los datos de mi compañía para poder sacar ventaja de esa información y hacer más dinero para mi compañía (es un sector altamente competitivo). El uso de Base de Datos no es necesario, solo es necesario leer el fichero csv y mostrar los resultados por pantalla.
 
