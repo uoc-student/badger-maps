@@ -46,12 +46,27 @@ def execute_query(connection, query):
 
 
 # Funtion to read from csv (parser)
-def read_from_csv_to_db_table(connection, csv_dir):
+def read_from_csv_into_db_table(connection, csv_dir):
     pass
 
-# Function to print the results from a query 
+
+ # Read returned data from sql queries
+def read_sql_query(connection, query):
+    cursor = connection.cursor()
+    result = None
+    try:
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+    except Error as err:
+        print(f"Error: '{err}'")
+
+
+# Function to print the results from a sql query 
 def print_query_result(query_obj):
-    pass
+    for row in query_obj:
+        print(row)
+
 
 # Main
 def main():
@@ -62,6 +77,9 @@ def main():
     database = "badger_db"
     cvs_dir = "./customer_data.csv"
     customer_table = "customer_table"
+    log_file = "badger.log"
+
+    logging.basicConfig(filename = log_file, level = logging.INFO)
 
     # Establish connection with the database
     connection = create_server_connection(hostname, user, password, database)
@@ -72,6 +90,8 @@ def main():
     # Drop table if exists (to avoid duplicates), else create table
     execute_query(connection, "DROP TABLE " + customer_table + ";")
     execute_query(connection, queries.create_customer_table) 
+
+
 
 
 if __name__ == "__main__":

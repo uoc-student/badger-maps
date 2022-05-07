@@ -1,6 +1,6 @@
-# Queries
+# MySQL queries
 
-# Create customer table
+
 create_customer_table = """
 CREATE TABLE customer_table (
   first_name VARCHAR(40),
@@ -17,4 +17,26 @@ CREATE TABLE customer_table (
  """
 
 
- 
+full_name_list_sorted_alphabetically = """
+SELECT first_name, last_name 
+FROM customer_table
+ORDER BY first_name; 
+"""
+
+
+most_recent_check_in = """
+SELECT *
+FROM customer_table
+WHERE last_check_in_date <> ''
+ORDER BY last_check_in_date
+LIMIT 1;
+"""
+
+
+least_recent_check_in = """
+SELECT *
+FROM customer_table
+WHERE last_check_in_date <> ''
+ORDER BY last_check_in_date DESC
+LIMIT 1;
+"""

@@ -1,4 +1,4 @@
-I chose to use them because:
+I chose to use databases because:
 1. Databases will implement any query in the best way possible.
 2. The code becomes easier to read.
 3. Better handling of exceptions.
