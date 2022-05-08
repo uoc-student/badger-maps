@@ -28,7 +28,6 @@ def execute_query(connection, query):
     try:
         cursor.execute(query)
         connection.commit()
-        print("Degug: Query successful!") # delete before release
     except Error as err:
         print(f"Error: '{err}'")
 
@@ -64,17 +63,18 @@ def set_dates(date):
 def handle_exceptions(row, headers):
     csv_required_fields = [2, 3, 4, 6, 9]
     empty_columns = 0
+    attributes = len(headers)
 
-    for i in range(len(headers)):       
+    for i in range(attributes):       
         if row[i] == '':
+            empty_columns += 1
             if i in csv_required_fields:
                 print("Warning: REQUIRED FIELD missing ->", headers[i], "in row", i)
             else:
                 print("Warning: Field missing ->", headers[i], "in row", i)
-        empty_columns += 1
-
-    if empty_columns >= 0:
-        message = "LOG -> line " + str(i) + " is empty!"
+            
+    if empty_columns >= attributes:
+        message = "LOG -> EXCEPTION in row " + str(i) + ". Row is empty!"
         logging.info(message)
         print(message)
 
@@ -95,7 +95,7 @@ def read_sql_query(connection, query):
 
 # Print results from sql query 
 def print_query_result(title, query_obj):   
-    print("**********")
+    print("\n**********")
     print(title)  
     
     for row in query_obj:
@@ -136,9 +136,9 @@ def main():
     full_name_list = read_sql_query(connection, queries.full_name_list_sorted_alphabetically)
 
     # Print results
-    print_query_result("Least recent check-in: ", least_recent_cehck_in)
-    print_query_result("Most recent check-in: ", most_recent_cehck_in)
-    print_query_result("Customer full name list: ", full_name_list)
+    print_query_result("LEAST recent check-in: ", least_recent_cehck_in)
+    print_query_result("MOST recent check-in: ", most_recent_cehck_in)
+    print_query_result("Customer FULL NAME list: ", full_name_list)
 
 
 if __name__ == "__main__":

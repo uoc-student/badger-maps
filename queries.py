@@ -1,6 +1,5 @@
 # MySQL queries
 
-
 create_customer_table = """
 CREATE TABLE customer_table (
   first_name VARCHAR(40),
