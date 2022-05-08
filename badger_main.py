@@ -22,18 +22,6 @@ def create_server_connection(host_name, user_name, user_password, user_db):
     return connection
 
 
-"""
-# Function to create a database
-def create_database(connection, query):
-        cursor = connection.cursor()
-        try:
-            cursor.execute(query)
-            print("Database created successfully")
-        except Error as err:
-            print(f"Error: '{err}'")
-"""
-
-
 # Function to query the db
 def execute_query(connection, query):
     cursor = connection.cursor()
@@ -45,9 +33,35 @@ def execute_query(connection, query):
         print(f"Error: '{err}'")
 
 
-# Funtion to read from csv (parser)
-def read_from_csv_into_db_table(connection, csv_dir):
-    pass
+# Funtion to read values from csv into table (parser)
+def read_from_csv_into_db_table(connection, table, csv_dir):
+    with open('customer_data.csv', newline='\n',  encoding="utf8") as csv_file:
+        csv_reader = csv.reader(csv_file)
+        headers = next(csv_reader, None) 
+        columns = len(headers)
+        for row in csv_reader:
+            empty_columns = 0
+            handle_exceptions(row, headers)
+            execute_query(connection, "INSERT INTO customer_table VALUES {};".format(tuple(row)))
+
+
+# Handle empty fields and LOG exceptions
+def handle_exceptions(row, headers):
+    csv_required_fields = [2, 3, 4, 6, 9]
+    empty_columns = 0
+
+    for i in range(len(headers)):       
+        if row[i] == '':
+            if i in csv_required_fields:
+                print("Warning: REQUIRED FIELD missing ->", headers[i], "in row", i)
+            else:
+                print("Warning: Field missing ->", headers[i], "in row", i)
+        empty_columns += 1
+
+    if empty_columns >= 0:
+        message = "LOG -> line " + str(i) + " is empty!"
+        logging.info(message)
+        print(message)
 
 
  # Read returned data from sql queries
@@ -62,8 +76,9 @@ def read_sql_query(connection, query):
         print(f"Error: '{err}'")
 
 
-# Function to print the results from a sql query 
+# Print results from sql query 
 def print_query_result(query_obj):
+    print(headers)
     for row in query_obj:
         print(row)
 
@@ -75,7 +90,7 @@ def main():
     user = "badger"
     password = "maps"
     database = "badger_db"
-    cvs_dir = "./customer_data.csv"
+    csv_dir = "./customer_data.csv"
     customer_table = "customer_table"
     log_file = "badger.log"
 
@@ -90,6 +105,9 @@ def main():
     # Drop table if exists (to avoid duplicates), else create table
     execute_query(connection, "DROP TABLE " + customer_table + ";")
     execute_query(connection, queries.create_customer_table) 
+
+    # Parser: read data from csv file into table and LOG errors
+    read_from_csv_into_db_table(connection, customer_table, csv_dir)
 
 
 
