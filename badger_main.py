@@ -5,7 +5,7 @@ from mysql.connector import Error   # exception handler
 import queries                      # queries to db are in a separate file
 
 
-# Function to establish a conncetion with the db
+# Establish a conncetion with the db
 def create_server_connection(host_name, user_name, user_password, user_db):
     conneciton = None
     try:
@@ -22,7 +22,7 @@ def create_server_connection(host_name, user_name, user_password, user_db):
     return connection
 
 
-# Function to query the db
+# Query the db
 def execute_query(connection, query):
     cursor = connection.cursor()
     try:
@@ -32,7 +32,7 @@ def execute_query(connection, query):
         print(f"Error: '{err}'")
 
 
-# Funtion to read values from csv into table (parser)
+# Read values from csv into table (parser)
 def read_from_csv_into_db_table(connection, table, csv_dir):
     with open('customer_data.csv', newline='\n',  encoding="utf8") as csv_file:
         csv_reader = csv.reader(csv_file)
@@ -79,7 +79,7 @@ def handle_exceptions(row, headers):
         print(message)
 
 
- # Read returned data from sql queries
+# Read returned data from sql queries
 def read_sql_query(connection, query):
     cursor = connection.cursor()
     result = None
