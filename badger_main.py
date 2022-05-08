@@ -39,10 +39,25 @@ def read_from_csv_into_db_table(connection, table, csv_dir):
         csv_reader = csv.reader(csv_file)
         headers = next(csv_reader, None) 
         columns = len(headers)
+        check_in_date = 6
         for row in csv_reader:
-            empty_columns = 0
             handle_exceptions(row, headers)
+            row[check_in_date] = set_dates(row[check_in_date])
             execute_query(connection, "INSERT INTO customer_table VALUES {};".format(tuple(row)))
+
+
+# Convert dates into standard format
+def set_dates(date):
+
+    if (date == ''):
+        return date
+
+    f_date = date.split("/")
+    yyyy = f_date[2]
+    mm = f_date[1]
+    dd = f_date[0]
+
+    return (yyyy + '-' + mm + '-' + dd)
 
 
 # Handle empty fields and LOG exceptions
@@ -68,19 +83,25 @@ def handle_exceptions(row, headers):
 def read_sql_query(connection, query):
     cursor = connection.cursor()
     result = None
+    
     try:
         cursor.execute(query)
         result = cursor.fetchall()
         return result
+    
     except Error as err:
         print(f"Error: '{err}'")
 
 
 # Print results from sql query 
-def print_query_result(query_obj):
-    print(headers)
+def print_query_result(title, query_obj):   
+    print("**********")
+    print(title)  
+    
     for row in query_obj:
         print(row)
+
+    print("**********\n")
 
 
 # Main
@@ -109,7 +130,15 @@ def main():
     # Parser: read data from csv file into table and LOG errors
     read_from_csv_into_db_table(connection, customer_table, csv_dir)
 
+    # Read queries
+    least_recent_cehck_in = read_sql_query(connection, queries.least_recent_check_in)
+    most_recent_cehck_in = read_sql_query(connection, queries.most_recent_check_in)
+    full_name_list = read_sql_query(connection, queries.full_name_list_sorted_alphabetically)
 
+    # Print results
+    print_query_result("Least recent check-in: ", least_recent_cehck_in)
+    print_query_result("Most recent check-in: ", most_recent_cehck_in)
+    print_query_result("Customer full name list: ", full_name_list)
 
 
 if __name__ == "__main__":

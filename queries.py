@@ -9,7 +9,7 @@ CREATE TABLE customer_table (
   zip VARCHAR(20),
   city VARCHAR(30),
   type VARCHAR(1),
-  last_check_in_date VARCHAR(10),       # date type to be considered, wip
+  last_check_in_date date,       # yyyy-mm-dd
   job VARCHAR(30),
   phone VARCHAR(20),
   company VARCHAR(40)
@@ -27,8 +27,8 @@ ORDER BY first_name;
 most_recent_check_in = """
 SELECT *
 FROM customer_table
-WHERE last_check_in_date <> ''
-ORDER BY last_check_in_date
+WHERE last_check_in_date <> '0000-00-00'
+ORDER BY last_check_in_date DESC
 LIMIT 1;
 """
 
@@ -36,7 +36,7 @@ LIMIT 1;
 least_recent_check_in = """
 SELECT *
 FROM customer_table
-WHERE last_check_in_date <> ''
-ORDER BY last_check_in_date DESC
+WHERE last_check_in_date <> '0000-00-00'
+ORDER BY last_check_in_date ASC
 LIMIT 1;
 """
