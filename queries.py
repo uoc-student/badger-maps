@@ -17,9 +17,10 @@ CREATE TABLE customer_table (
 
 
 full_name_list_sorted_alphabetically = """
-SELECT first_name, last_name 
+SELECT first_name, last_name AS full_name
 FROM customer_table
-ORDER BY first_name; 
+WHERE first_name <> '' AND last_name <> ''
+ORDER BY first_name, last_name; 
 """
 
 

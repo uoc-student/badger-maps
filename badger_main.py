@@ -49,7 +49,7 @@ def read_from_csv_into_db_table(connection, table, csv_dir):
 def set_dates(date):
 
     if (date == ''):
-        return date
+        return '0000-00-00'
 
     f_date = date.split("/")
     yyyy = f_date[2]
